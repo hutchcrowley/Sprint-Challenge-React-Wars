@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import DropDown from './components/DropDown';
-import PersonList from '../src/components/PersonList';
+import PersonCard from '../src/components/PersonCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './index.css'
 
 const App = () =>
 {
@@ -12,7 +12,7 @@ const App = () =>
       <DropDown />
       <h1>Star Wars API:</h1>
       <h2>The People of Star Wars!</h2>
-      <PersonList />
+      <PersonCard />
     </div>
   );
 }

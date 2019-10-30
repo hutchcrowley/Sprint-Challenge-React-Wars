@@ -1,32 +1,55 @@
-import React from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, CardText, Container, Col} from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Container, Row } from 'reactstrap';
+import PersonList from './PersonList';
 
-const PersonCard = ( { props, loading }) =>
+const PersonCard = () =>
 {
-  if(loading) {
-    return<h2>Loading...</h2>
-  }
-  console.log(props);
+
+  const [people, setPeople] = useState([]);
+
+  useEffect(() =>
+  {
+    axios
+      .get(`https://swapi.co/api/people/`)
+
+      .then(response =>
+      {
+        console.log(response)
+        const personInfo = response.data.results;
+        console.log(personInfo);
+        setPeople(personInfo);
+      })
+      .catch(error =>
+      {
+        console.log('The data was not reaturned', error);
+      });
+  }, []);
+  console.log(people)
+
   return (
-    <Container className="person-wrapper">
-          <Col xs="6" sm="4" lg="2" key={props.name}>
-            <Card className="perso-card">
-              console.log(props.name);
-              <CardBody>
-                <CardTitle>Character Name: {props.name}</CardTitle>
-                <CardSubtitle>Species: {props.species}</CardSubtitle>
-                <CardText>Gender: {props.gender}</CardText>
-                <CardText>Height: {props.height}</CardText>
-                <CardText>weight: {props.weight}</CardText>
-                <CardText>Hair Color: {props.hairColor}</CardText>
-                <CardText>Homeworld: {props.home}</CardText>
-                <CardText>Birth Year: {props.birthday}</CardText>
-                <CardText>Films: {props.films}</CardText>
-                <CardText>Vehicles: {props.vehicles}</CardText>
-                <CardText>Ships: {props.ships}</CardText>
-              </CardBody>
-            </Card>
-          </Col>
-    </Container>
+    <>
+      <Container>
+        <Row>
+          {people.map(person =>
+          {
+            return (
+              <PersonList key={person.name}
+                name={person.name}
+                birthYear={person.birth_year}
+                gender={person.gender}
+                hairColor={person.hair_color}
+                height={person.height}
+                weight={person.mass}
+              />
+            );
+          })}
+        </Row>
+      </Container>
+    </>
   );
+
 }
+
+
+export default PersonCard

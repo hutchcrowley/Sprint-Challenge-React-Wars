@@ -1,38 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Row } from 'reactstrap';
+import React from 'react';
+import { Col, Card, CardBody, CardTitle, CardSubtitle, CardText } from 'reactstrap';
 
-const PersonList = () =>
+const PersonList = (props) =>
 {
-
-  const [people, setPeople] = useState([]);
-
-  useEffect(() =>
-  {
-    axios
-
-      .get(`https://swapi.co/api/people/1/?format=api`)
-
-      .then(response =>
-      {
-        const personInfo = response.data;
-        // eslint-disable-next-line no-undef
-        console.log(Person, personInfo);
-        setPeople(personInfo);
-      })
-      .catch(error =>
-      {
-        console.log('The data was not reaturned', error);
-      });
-  }, []);
-
   return (
-    <>
-      <Row>
-        {people.map}
-      </Row>
-    </>
-  )
+    <Col xs="6" sm="4" lg='4' className='card-wrapper'>
+      <Card className='person-card'>
+        <CardTitle Style='bold' fontSize='25pt'>Character Name:{props.name}</CardTitle>
+        <CardBody>
+          <CardText>Birth Year: {props.birthYear}</CardText>
+          <CardText>Gender: {props.gender}</CardText>
+          <CardText>Height: {props.height}</CardText>
+          <CardText>weight: {props.weight}</CardText>
+          <CardText>Hair Color: {props.hairColor}</CardText>
+        </CardBody>
+      </Card>
+    </Col>
+  );
+
 }
 
 export default PersonList
