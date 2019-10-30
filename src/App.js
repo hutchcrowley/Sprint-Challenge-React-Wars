@@ -1,6 +1,7 @@
 import React from 'react'
 import DropDown from '../src/components/DropDown'
 import PersonList from '../src/components/PersonList'
+import './styles.css'
 
 const App = () => {
   return (
